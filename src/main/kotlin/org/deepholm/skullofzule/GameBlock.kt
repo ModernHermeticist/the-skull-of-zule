@@ -3,6 +3,7 @@ package org.deepholm.skullofzule
 import org.deepholm.skullofzule.config.GameTileRepository
 import org.deepholm.skullofzule.extensions.GameEntity
 import org.hexworks.amethyst.api.entity.EntityType
+import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.zircon.api.data.BlockSide
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.data.base.BlockBase
@@ -25,6 +26,12 @@ class GameBlock(private var defaultTile: Tile = GameTileRepository.FLOOR,
     val entities: Iterable<GameEntity<EntityType>>
         get() = currentEntities.toList()
 
+    val occupier: Maybe<GameEntity<EntityType>>
+        get() = Maybe.ofNullable(currentEntities.firstOrNull { it.occupiesBlock })
+
+    val isOccupied: Boolean
+        get() = occupier.isPresent
+
     override val layers: MutableList<Tile>
         get() {
             val entityTiles = currentEntities.map { it.tile}
@@ -46,5 +53,10 @@ class GameBlock(private var defaultTile: Tile = GameTileRepository.FLOOR,
 
     override fun fetchSide(side: BlockSide): Tile {
         return GameTileRepository.EMPTY
+    }
+
+    companion object {
+        fun createWith(entity: GameEntity<EntityType>) = GameBlock(
+                currentEntities = mutableListOf(entity))
     }
 }
