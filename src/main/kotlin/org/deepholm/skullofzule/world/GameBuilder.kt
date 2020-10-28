@@ -1,7 +1,7 @@
 package org.deepholm.skullofzule.world
 
-import org.deepholm.skullofzule.GameConfig
-import org.deepholm.skullofzule.GameConfig.WORLD_SIZE
+import org.deepholm.skullofzule.config.GameConfig
+import org.deepholm.skullofzule.config.GameConfig.WORLD_SIZE
 import org.deepholm.skullofzule.attributes.types.Player
 import org.deepholm.skullofzule.builders.EntityFactory
 import org.deepholm.skullofzule.extensions.GameEntity

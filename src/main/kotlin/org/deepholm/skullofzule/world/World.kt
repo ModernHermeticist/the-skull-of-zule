@@ -1,6 +1,7 @@
 package org.deepholm.skullofzule.world
 
 import org.deepholm.skullofzule.*
+import org.deepholm.skullofzule.builders.GameBlockFactory
 import org.deepholm.skullofzule.extensions.GameEntity
 import org.hexworks.amethyst.api.Engine
 import org.hexworks.amethyst.api.Engines
@@ -85,6 +86,20 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
         return position
     }
 
+    fun moveEntity(entity: GameEntity<EntityType>, position: Position3D): Boolean {
+        var success = false
+        val oldBlock = fetchBlockAt(entity.position)
+        val newBlock = fetchBlockAt(position)
+
+        if (bothBlocksPresent(oldBlock, newBlock)) {
+            success = true
+            oldBlock.get().removeEntity(entity)
+            entity.position = position
+            newBlock.get().addEntity(entity)
+        }
+        return success
+    }
+
     fun update(screen: Screen, uiEvent: UIEvent, game: Game) {
         engine.update(GameContext(
                 world = this,
@@ -93,6 +108,9 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
                 player = game.player
         ))
     }
+
+    private fun bothBlocksPresent(oldBlock: Maybe<GameBlock>, newBlock: Maybe<GameBlock>) =  // 7
+            oldBlock.isPresent && newBlock.isPresent
 
     companion object {
         private val DEFAULT_BLOCK = GameBlockFactory.floor()

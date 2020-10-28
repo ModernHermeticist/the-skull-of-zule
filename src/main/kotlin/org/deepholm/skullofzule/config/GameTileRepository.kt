@@ -1,6 +1,6 @@
-package org.deepholm.skullofzule
+package org.deepholm.skullofzule.config
 
-import org.deepholm.skullofzule.GameColors
+import org.deepholm.skullofzule.config.GameColors
 import org.hexworks.zircon.api.Tiles
 import org.hexworks.zircon.api.data.CharacterTile
 import org.hexworks.zircon.api.graphics.Symbols

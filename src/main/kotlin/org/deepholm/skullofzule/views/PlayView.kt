@@ -2,7 +2,7 @@ package org.deepholm.skullofzule.views
 
 import org.deepholm.skullofzule.world.Game
 import org.deepholm.skullofzule.GameBlock
-import org.deepholm.skullofzule.GameConfig
+import org.deepholm.skullofzule.config.GameConfig
 import org.deepholm.skullofzule.world.GameBuilder
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.Components

@@ -1,7 +1,7 @@
 package org.deepholm.skullofzule.builders
 
 import org.deepholm.skullofzule.GameBlock
-import org.deepholm.skullofzule.GameTileRepository
+import org.deepholm.skullofzule.config.GameTileRepository
 
 object GameBlockFactory {
 
