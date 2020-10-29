@@ -1,4 +1,5 @@
-# Caves of Zircon Tutorial
+# The Skull of Zule
 
-This project is part of the [How to Make a Roguelike](https://hexworks.org/posts/tutorials/2018/11/04/how-to-make-a-roguelike.html)
-tutorial. Check out the article series if you want to make the most ouf of this project.
+This project is a learning project. It is written in Kotlin and implements an ECS.
+
+The Skull of Zule: Explore the caves, fight the monsters, and just maybe find the elusive Skull of Zule.

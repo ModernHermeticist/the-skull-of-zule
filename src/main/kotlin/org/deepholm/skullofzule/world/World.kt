@@ -49,6 +49,27 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
         }
     }
 
+    fun moveEntity(entity: GameEntity<EntityType>, position: Position3D): Boolean {
+        var success = false
+        val oldBlock = fetchBlockAt(entity.position)
+        val newBlock = fetchBlockAt(position)
+
+        if (bothBlocksPresent(oldBlock, newBlock)) {
+            success = true
+            oldBlock.get().removeEntity(entity)
+            entity.position = position
+            newBlock.get().addEntity(entity)
+        }
+        return success
+    }
+
+    fun removeEntity(entity: Entity<EntityType, GameContext>) {
+        fetchBlockAt(entity.position).map {
+            it.removeEntity(entity)
+        }
+        engine.removeEntity(entity)
+        entity.position = Position3D.unknown()
+    }
 
     fun addAtEmptyPosition(entity: GameEntity<EntityType>,
                            offset: Position3D = Positions.default3DPosition(),
@@ -84,20 +105,6 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
             currentTry++
         }
         return position
-    }
-
-    fun moveEntity(entity: GameEntity<EntityType>, position: Position3D): Boolean {
-        var success = false
-        val oldBlock = fetchBlockAt(entity.position)
-        val newBlock = fetchBlockAt(position)
-
-        if (bothBlocksPresent(oldBlock, newBlock)) {
-            success = true
-            oldBlock.get().removeEntity(entity)
-            entity.position = position
-            newBlock.get().addEntity(entity)
-        }
-        return success
     }
 
     fun update(screen: Screen, uiEvent: UIEvent, game: Game) {

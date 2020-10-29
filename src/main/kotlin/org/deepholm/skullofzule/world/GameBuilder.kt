@@ -4,9 +4,13 @@ import org.deepholm.skullofzule.config.GameConfig
 import org.deepholm.skullofzule.config.GameConfig.WORLD_SIZE
 import org.deepholm.skullofzule.attributes.types.Player
 import org.deepholm.skullofzule.builders.EntityFactory
+import org.deepholm.skullofzule.config.GameConfig.FUNGI_PER_LEVEL
 import org.deepholm.skullofzule.extensions.GameEntity
+import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.zircon.api.Positions
 import org.hexworks.zircon.api.Sizes
+import org.hexworks.zircon.api.data.Size
+import org.hexworks.zircon.api.data.impl.Position3D
 import org.hexworks.zircon.api.data.impl.Size3D
 
 class GameBuilder(val worldSize: Size3D) {
@@ -25,6 +29,7 @@ class GameBuilder(val worldSize: Size3D) {
         prepareWorld()
 
         val player = addPlayer()
+        addFungi()
 
         return Game.create(
                 player = player,
@@ -36,11 +41,27 @@ class GameBuilder(val worldSize: Size3D) {
     }
 
     private fun addPlayer(): GameEntity<Player> {
-        val player = EntityFactory.newPlayer()
-        world.addAtEmptyPosition(player,
-                offset = Positions.default3DPosition().withZ(GameConfig.DUNGEON_LEVELS - 1),
-                size = world.visibleSize().copy(zLength = 0))
-        return player
+        return EntityFactory.newPlayer().addToWorld(
+                atLevel = GameConfig.DUNGEON_LEVELS - 1,
+                atArea = world.visibleSize().to2DSize())
+    }
+
+    private fun addFungi() = also {
+        repeat(world.actualSize().zLength) { level ->
+            repeat(FUNGI_PER_LEVEL) {
+                EntityFactory.newFungus().addToWorld(level)
+            }
+        }
+    }
+
+    private fun <T: EntityType> GameEntity<T>.addToWorld(
+            atLevel: Int,
+            atArea: Size = world.actualSize().to2DSize()): GameEntity<T> {
+        world.addAtEmptyPosition(this,
+                offset = Position3D.defaultPosition().withZ(atLevel),
+                size = Size3D.from2DSize(atArea))
+        return this
+
     }
 
     companion object {
