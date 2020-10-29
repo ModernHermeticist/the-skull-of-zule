@@ -3,7 +3,9 @@ package org.deepholm.skullofzule.views
 import org.deepholm.skullofzule.world.Game
 import org.deepholm.skullofzule.GameBlock
 import org.deepholm.skullofzule.config.GameConfig
+import org.deepholm.skullofzule.events.GameLogEvent
 import org.deepholm.skullofzule.world.GameBuilder
+import org.hexworks.cobalt.events.api.subscribe
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
@@ -14,6 +16,7 @@ import org.hexworks.zircon.api.game.ProjectionMode
 import org.hexworks.zircon.api.mvc.base.BaseView
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.hexworks.zircon.api.uievent.Processed
+import org.hexworks.zircon.internal.Zircon
 
 class PlayView(private val game: Game = GameBuilder.defaultGame()) : BaseView() {
     override val theme = ColorThemes.arc()
@@ -47,5 +50,13 @@ class PlayView(private val game: Game = GameBuilder.defaultGame()) : BaseView() 
         screen.addComponent(gameComponent)
         screen.addComponent(sideBar)
         screen.addComponent(logArea)
+
+        Zircon.eventBus.subscribe<GameLogEvent> { (text) ->
+            logArea.addParagraph(
+                    paragraph = text,
+                    withNewLine = false,
+                    withTypingEffectSpeedInMs = 10
+            )
+        }
     }
 }
