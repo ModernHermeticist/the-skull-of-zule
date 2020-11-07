@@ -11,6 +11,8 @@ import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.data.Tile
+import org.hexworks.zircon.api.extensions.box
+import org.hexworks.zircon.api.extensions.handleKeyboardEvents
 import org.hexworks.zircon.api.extensions.onKeyboardEvent
 import org.hexworks.zircon.api.game.ProjectionMode
 import org.hexworks.zircon.api.mvc.base.BaseView
@@ -25,12 +27,12 @@ class PlayView(private val game: Game = GameBuilder.defaultGame()) : BaseView() 
 
         val sideBar = Components.panel()
                 .withSize(GameConfig.SIDEBAR_WIDTH, GameConfig.WINDOW_HEIGHT)
-                .wrapWithBox()
+                .withDecorations(box())
                 .build()
 
         val logArea = Components.logArea()
-                .withTitle("Log")
-                .wrapWithBox()
+                .withDecorations(box(title = "Log"))
+                .withDecorations(box())
                 .withSize(GameConfig.WINDOW_WIDTH - GameConfig.SIDEBAR_WIDTH, GameConfig.LOG_AREA_HEIGHT)
                 .withAlignmentWithin(screen, ComponentAlignment.BOTTOM_RIGHT)
                 .build()
@@ -42,7 +44,7 @@ class PlayView(private val game: Game = GameBuilder.defaultGame()) : BaseView() 
                 .withAlignmentWithin(screen, ComponentAlignment.TOP_RIGHT)
                 .build()
 
-        screen.onKeyboardEvent(KeyboardEventType.KEY_PRESSED) { event, _ ->
+        screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { event, _ ->
             game.world.update(screen, event, game)
             Processed
         }

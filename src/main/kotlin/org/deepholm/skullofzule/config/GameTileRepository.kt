@@ -7,6 +7,11 @@ import org.hexworks.zircon.api.graphics.Symbols
 
 object GameTileRepository {
 
+    val UNREVEALED = Tiles.newBuilder()
+            .withCharacter(' ')
+            .withBackgroundColor(GameColors.UNREVEALED_COLOR)
+            .buildCharacterTile()
+
     val EMPTY: CharacterTile = Tiles.empty()
 
     val FLOOR: CharacterTile = Tiles.newBuilder()
@@ -43,5 +48,17 @@ object GameTileRepository {
             .withCharacter('f')
             .withBackgroundColor(GameColors.FLOOR_BACKGROUND)
             .withForegroundColor(GameColors.FUNGUS_COLOR)
+            .buildCharacterTile()
+
+    val BAT = Tiles.newBuilder()
+            .withCharacter('b')
+            .withBackgroundColor(GameColors.FLOOR_BACKGROUND)
+            .withForegroundColor(GameColors.BAT_COLOR)
+            .buildCharacterTile()
+
+    val TIN = Tiles.newBuilder()
+            .withCharacter(',')
+            .withBackgroundColor(GameColors.FLOOR_BACKGROUND)
+            .withForegroundColor(GameColors.TIN_COLOR)
             .buildCharacterTile()
 }

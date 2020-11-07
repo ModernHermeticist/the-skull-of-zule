@@ -3,11 +3,14 @@ package org.deepholm.skullofzule.views
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.ComponentAlignment
+import org.hexworks.zircon.api.extensions.box
+import org.hexworks.zircon.api.extensions.handleComponentEvents
 import org.hexworks.zircon.api.extensions.onComponentEvent
 import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.mvc.base.BaseView
 import org.hexworks.zircon.api.uievent.ComponentEventType
 import org.hexworks.zircon.api.uievent.Processed
+import kotlin.system.exitProcess
 
 class LoseView: BaseView() {
 
@@ -15,34 +18,31 @@ class LoseView: BaseView() {
 
     override fun onDock() {
         val msg = "Game Over!"
-        val header = Components.textBox()
-                .withContentWidth(30)
+        val header = Components.textBox(30)
                 .addHeader(msg)
                 .withAlignmentWithin(screen, ComponentAlignment.CENTER)
                 .build()
         val restartButton = Components.button()
                 .withAlignmentAround(header, ComponentAlignment.BOTTOM_LEFT)
                 .withText("Restart")
-                .wrapSides(false)
-                .wrapWithBox()
-                .withBoxType(BoxType.SINGLE)
+                .withDecorations(box())
+                .withDecorations(box(boxType = BoxType.SINGLE))
                 .build()
         val exitButton = Components.button()
                 .withAlignmentAround(header, ComponentAlignment.BOTTOM_RIGHT)
                 .withText("Quit")
-                .wrapSides(false)
-                .wrapWithBox()
-                .withBoxType(BoxType.SINGLE)
+                .withDecorations(box())
+                .withDecorations(box(boxType = BoxType.SINGLE))
                 .build()
 
-        restartButton.onComponentEvent(ComponentEventType.ACTIVATED) {
+        restartButton.handleComponentEvents(ComponentEventType.ACTIVATED) {
             replaceWith(PlayView())
             close()
             Processed
         }
 
-        exitButton.onComponentEvent(ComponentEventType.ACTIVATED) {
-            System.exit(0)
+        exitButton.handleComponentEvents(ComponentEventType.ACTIVATED) {
+            exitProcess(0)
             Processed
         }
 

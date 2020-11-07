@@ -4,7 +4,9 @@ import org.deepholm.skullofzule.config.GameConfig
 import org.deepholm.skullofzule.config.GameConfig.WORLD_SIZE
 import org.deepholm.skullofzule.attributes.types.Player
 import org.deepholm.skullofzule.builders.EntityFactory
+import org.deepholm.skullofzule.config.GameConfig.BATS_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.FUNGI_PER_LEVEL
+import org.deepholm.skullofzule.config.GameConfig.TIN_PER_LEVEL
 import org.deepholm.skullofzule.extensions.GameEntity
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.zircon.api.Positions
@@ -30,10 +32,16 @@ class GameBuilder(val worldSize: Size3D) {
 
         val player = addPlayer()
         addFungi()
+        addBats()
+        addTin()
 
-        return Game.create(
+        val game = Game.create(
                 player = player,
                 world = world)
+
+        world.addWorldEntity(EntityFactory.newFogOfWar(game))
+
+        return game
     }
 
     private fun prepareWorld() = also {
@@ -50,6 +58,22 @@ class GameBuilder(val worldSize: Size3D) {
         repeat(world.actualSize().zLength) { level ->
             repeat(FUNGI_PER_LEVEL) {
                 EntityFactory.newFungus().addToWorld(level)
+            }
+        }
+    }
+
+    private fun addBats() = also {
+        repeat(world.actualSize().zLength) {level ->
+            repeat(BATS_PER_LEVEL) {
+                EntityFactory.newBat().addToWorld(level)
+            }
+        }
+    }
+
+    private fun addTin() = also {
+        repeat(world.actualSize().zLength) { level ->
+            repeat(TIN_PER_LEVEL) {
+                EntityFactory.newTin().addToWorld(level)
             }
         }
     }

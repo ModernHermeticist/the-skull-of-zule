@@ -5,10 +5,9 @@ import org.deepholm.skullofzule.views.StartView
 import org.hexworks.zircon.api.SwingApplications
 
 @Suppress("ConstantConditionIf")
-fun main(args: Array<String>) {
+fun main() {
 
     val application = SwingApplications.startApplication(GameConfig.buildAppConfig())
-
     application.start()
     application.dock(StartView())
 
