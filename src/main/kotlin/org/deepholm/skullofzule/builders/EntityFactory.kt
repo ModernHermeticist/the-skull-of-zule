@@ -33,10 +33,12 @@ object EntityFactory {
                         maxHp = 100,
                         attackValue = 10,
                         defenseValue = 5),
-                Inventory(10))
-        behaviors(InputReceiver)
+                Inventory(10),
+                EnergyLevel(1000,1000))
+        behaviors(InputReceiver, EnergyExpender)
         facets(Movable, CameraMover, StairClimber, StairDescender,
-                Attackable, Destructible, ItemPicker, InventoryInspector, ItemDropper)
+                Attackable, Destructible, ItemPicker, InventoryInspector, ItemDropper,
+                EnergyExpender, DigestiveSystem)
     }
 
     fun newWall() = newGameEntityOfType(Wall) {
@@ -86,8 +88,11 @@ object EntityFactory {
                 maxHp = 5,
                 attackValue = 2,
                 defenseValue = 1),
-        EntityActions(Attack::class))
-        facets(Movable, Attackable, Destructible)
+        EntityActions(Attack::class),
+        Inventory(1).apply {
+            addItem(newBatMeat())
+        })
+        facets(Movable, Attackable, ItemDropper, LootDropper, Destructible)
         behaviors(Wanderer)
     }
 
@@ -98,5 +103,15 @@ object EntityFactory {
                 .buildGraphicTile()),
         EntityPosition(),
         EntityTile(GameTileRepository.TIN))
+    }
+
+    fun newBatMeat() = newGameEntityOfType(BatMeat) {
+        attributes(ItemIcon(Tiles.newBuilder()
+                .withName("Meatball")       // 1
+                .withTileset(GraphicalTilesetResources.nethack16x16())
+                .buildGraphicTile()),
+                NutritionalValue(750),  // 2
+                EntityPosition(),
+                EntityTile(GameTileRepository.BAT_MEAT))
     }
 }

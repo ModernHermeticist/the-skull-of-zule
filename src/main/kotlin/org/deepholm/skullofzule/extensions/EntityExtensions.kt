@@ -1,5 +1,6 @@
-package org.deepholm.skullofzule
+package org.deepholm.skullofzule.extensions
 
+import org.deepholm.skullofzule.GameContext
 import org.deepholm.skullofzule.attributes.EntityActions
 import org.deepholm.skullofzule.attributes.EntityPosition
 import org.deepholm.skullofzule.attributes.EntityTile
@@ -8,8 +9,6 @@ import org.deepholm.skullofzule.attributes.flags.VisionBlocker
 import org.deepholm.skullofzule.attributes.types.Combatant
 import org.deepholm.skullofzule.attributes.types.Player
 import org.deepholm.skullofzule.attributes.types.combatStats
-import org.deepholm.skullofzule.extensions.AnyGameEntity
-import org.deepholm.skullofzule.extensions.GameEntity
 import org.hexworks.amethyst.api.Attribute
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.Pass

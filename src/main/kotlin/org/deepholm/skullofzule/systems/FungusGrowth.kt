@@ -4,8 +4,8 @@ import org.deepholm.skullofzule.GameContext
 import org.deepholm.skullofzule.attributes.FungusSpread
 import org.deepholm.skullofzule.builders.EntityFactory
 import org.deepholm.skullofzule.extensions.GameEntity
-import org.deepholm.skullofzule.position
-import org.deepholm.skullofzule.tryToFindAttribute
+import org.deepholm.skullofzule.extensions.position
+import org.deepholm.skullofzule.extensions.tryToFindAttribute
 import org.hexworks.amethyst.api.base.BaseBehavior
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.cobalt.datatypes.extensions.map

@@ -5,9 +5,9 @@ import org.deepholm.skullofzule.attributes.types.Item
 import org.deepholm.skullofzule.attributes.types.addItem
 import org.deepholm.skullofzule.commands.PickItemUp
 import org.deepholm.skullofzule.extensions.GameCommand
-import org.deepholm.skullofzule.filterType
+import org.deepholm.skullofzule.extensions.filterType
 import org.deepholm.skullofzule.functions.logGameEvent
-import org.deepholm.skullofzule.isPlayer
+import org.deepholm.skullofzule.extensions.isPlayer
 import org.deepholm.skullofzule.world.World
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.base.BaseFacet

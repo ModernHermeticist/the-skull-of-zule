@@ -4,6 +4,7 @@ import org.deepholm.skullofzule.world.Game
 import org.deepholm.skullofzule.GameBlock
 import org.deepholm.skullofzule.config.GameConfig
 import org.deepholm.skullofzule.events.GameLogEvent
+import org.deepholm.skullofzule.views.fragment.PlayerStatsFragment
 import org.deepholm.skullofzule.world.GameBuilder
 import org.hexworks.cobalt.events.api.subscribe
 import org.hexworks.zircon.api.ColorThemes
@@ -43,6 +44,10 @@ class PlayView(private val game: Game = GameBuilder.defaultGame()) : BaseView() 
                 .withProjectionMode(ProjectionMode.TOP_DOWN)
                 .withAlignmentWithin(screen, ComponentAlignment.TOP_RIGHT)
                 .build()
+
+        sideBar.addFragment(PlayerStatsFragment(
+                width = sideBar.contentSize.width,
+                player = game.player))
 
         screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { event, _ ->
             game.world.update(screen, event, game)

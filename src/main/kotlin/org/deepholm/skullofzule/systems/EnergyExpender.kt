@@ -8,7 +8,7 @@ import org.deepholm.skullofzule.commands.Destroy
 import org.deepholm.skullofzule.commands.ExpendEnergy
 import org.deepholm.skullofzule.extensions.GameCommand
 import org.deepholm.skullofzule.extensions.GameEntity
-import org.deepholm.skullofzule.whenTypeIs
+import org.deepholm.skullofzule.extensions.whenTypeIs
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.Response
 import org.hexworks.amethyst.api.base.BaseActor
@@ -42,7 +42,7 @@ object EnergyExpender : BaseActor<GameContext>(EnergyLevel::class) {
                     context = context,
                     source = entity,
                     target = entity,
-                    cause = "starvation"))
+                    cause = "because of starvation"))
         }
     }
 }

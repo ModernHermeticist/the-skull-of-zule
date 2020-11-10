@@ -3,8 +3,8 @@ package org.deepholm.skullofzule.systems
 import org.deepholm.skullofzule.GameContext
 import org.deepholm.skullofzule.commands.MoveTo
 import org.deepholm.skullofzule.extensions.GameEntity
-import org.deepholm.skullofzule.position
-import org.deepholm.skullofzule.sameLevelNeighborsShuffled
+import org.deepholm.skullofzule.extensions.position
+import org.deepholm.skullofzule.extensions.sameLevelNeighborsShuffled
 import org.hexworks.amethyst.api.base.BaseBehavior
 import org.hexworks.amethyst.api.entity.EntityType
 

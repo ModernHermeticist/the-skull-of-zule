@@ -4,6 +4,8 @@ import org.deepholm.skullofzule.*
 import org.deepholm.skullofzule.attributes.Vision
 import org.deepholm.skullofzule.builders.GameBlockFactory
 import org.deepholm.skullofzule.extensions.GameEntity
+import org.deepholm.skullofzule.extensions.blocksVision
+import org.deepholm.skullofzule.extensions.position
 import org.hexworks.amethyst.api.Engine
 import org.hexworks.amethyst.api.Engines
 import org.hexworks.amethyst.api.entity.Entity

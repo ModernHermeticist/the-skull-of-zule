@@ -2,7 +2,7 @@ package org.deepholm.skullofzule.world
 
 import org.deepholm.skullofzule.GameBlock
 import org.deepholm.skullofzule.builders.GameBlockFactory
-import org.deepholm.skullofzule.sameLevelNeighborsShuffled
+import org.deepholm.skullofzule.extensions.sameLevelNeighborsShuffled
 import org.hexworks.zircon.api.Positions
 import org.hexworks.zircon.api.data.impl.Position3D
 import org.hexworks.zircon.api.data.impl.Size3D

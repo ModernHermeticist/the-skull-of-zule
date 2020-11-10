@@ -4,7 +4,7 @@ import org.deepholm.skullofzule.GameContext
 import org.deepholm.skullofzule.attributes.types.Player
 import org.deepholm.skullofzule.commands.*
 import org.deepholm.skullofzule.extensions.GameEntity
-import org.deepholm.skullofzule.position
+import org.deepholm.skullofzule.extensions.position
 import org.hexworks.amethyst.api.base.BaseBehavior
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.cobalt.logging.api.LoggerFactory

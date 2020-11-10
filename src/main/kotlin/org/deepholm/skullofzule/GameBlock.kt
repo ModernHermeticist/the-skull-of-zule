@@ -2,6 +2,8 @@ package org.deepholm.skullofzule
 
 import org.deepholm.skullofzule.config.GameTileRepository
 import org.deepholm.skullofzule.extensions.GameEntity
+import org.deepholm.skullofzule.extensions.occupiesBlock
+import org.deepholm.skullofzule.extensions.tile
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.zircon.api.data.BlockSide

@@ -6,8 +6,8 @@ import org.deepholm.skullofzule.commands.Attack
 import org.deepholm.skullofzule.commands.Destroy
 import org.deepholm.skullofzule.extensions.GameCommand
 import org.deepholm.skullofzule.functions.logGameEvent
-import org.deepholm.skullofzule.isPlayer
-import org.deepholm.skullofzule.whenHasNoHealthLeft
+import org.deepholm.skullofzule.extensions.isPlayer
+import org.deepholm.skullofzule.extensions.whenHasNoHealthLeft
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.Pass
 import org.hexworks.amethyst.api.base.BaseFacet
@@ -26,7 +26,7 @@ object Attackable : BaseFacet<GameContext>() {
                         context = context,
                         source = attacker,
                         target = target,
-                        cause = "a blow to the head"
+                        cause = "after receiving blow to the head"
                 ))
             }
             Consumed

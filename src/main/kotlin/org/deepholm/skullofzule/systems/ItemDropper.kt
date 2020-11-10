@@ -5,7 +5,7 @@ import org.deepholm.skullofzule.attributes.types.removeItem
 import org.deepholm.skullofzule.commands.DropItem
 import org.deepholm.skullofzule.extensions.GameCommand
 import org.deepholm.skullofzule.functions.logGameEvent
-import org.deepholm.skullofzule.isPlayer
+import org.deepholm.skullofzule.extensions.isPlayer
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.base.BaseFacet
 import org.hexworks.amethyst.api.entity.EntityType

@@ -5,8 +5,8 @@ import org.deepholm.skullofzule.attributes.types.Player
 import org.deepholm.skullofzule.commands.MoveCamera
 import org.deepholm.skullofzule.commands.MoveTo
 import org.deepholm.skullofzule.extensions.GameCommand
-import org.deepholm.skullofzule.position
-import org.deepholm.skullofzule.tryActionsOn
+import org.deepholm.skullofzule.extensions.position
+import org.deepholm.skullofzule.extensions.tryActionsOn
 import org.hexworks.amethyst.api.CommandResponse
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.Pass

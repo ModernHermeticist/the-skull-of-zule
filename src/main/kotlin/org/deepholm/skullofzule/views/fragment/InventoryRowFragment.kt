@@ -1,20 +1,26 @@
 package org.deepholm.skullofzule.views.fragment
 
+import org.deepholm.skullofzule.attributes.types.Food
 import org.deepholm.skullofzule.attributes.types.iconTile
 import org.deepholm.skullofzule.extensions.GameItem
+import org.deepholm.skullofzule.extensions.whenTypeIs
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.Fragment
-import org.hexworks.zircon.api.graphics.Symbols
 
 class InventoryRowFragment(width: Int, item: GameItem) : Fragment {
 
     val dropButton = Components.button()
-            .withText("${Symbols.ARROW_DOWN}")
+            .withText("Drop")
             .build()
 
-    override val root = Components.hbox().withSize(width, 1).build().apply {
+    val eatButton = Components.button()
+            .withText("Eat")
+            .build()
+
+    override val root = Components.hbox().withSpacing(1).withSize(width, 1).build().apply {
         addComponent(Components.icon().withIcon(item.iconTile))
         addComponent(Components.label().withSize(InventoryFragment.NAME_COLUMN_WIDTH, 1).withText(item.name))
         addComponent(dropButton)
+        item.whenTypeIs<Food> { addComponent(eatButton) }
     }
 }

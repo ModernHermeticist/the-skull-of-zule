@@ -6,7 +6,7 @@ import org.deepholm.skullofzule.attributes.types.StairsDown
 import org.deepholm.skullofzule.commands.MoveDown
 import org.deepholm.skullofzule.extensions.GameCommand
 import org.deepholm.skullofzule.functions.logGameEvent
-import org.deepholm.skullofzule.position
+import org.deepholm.skullofzule.extensions.position
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.base.BaseFacet
 import org.hexworks.amethyst.api.entity.EntityType

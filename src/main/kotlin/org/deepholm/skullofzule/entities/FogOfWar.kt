@@ -3,7 +3,7 @@ package org.deepholm.skullofzule.entities
 import org.deepholm.skullofzule.GameContext
 import org.deepholm.skullofzule.attributes.types.FogOfWarType
 import org.deepholm.skullofzule.config.GameTileRepository
-import org.deepholm.skullofzule.position
+import org.deepholm.skullofzule.extensions.position
 import org.deepholm.skullofzule.world.Game
 import org.hexworks.amethyst.api.base.BaseEntity
 import org.hexworks.zircon.api.Layers

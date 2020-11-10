@@ -1,4 +1,4 @@
-package org.deepholm.skullofzule
+package org.deepholm.skullofzule.extensions
 
 import org.hexworks.zircon.api.data.impl.Position3D
 
