@@ -4,9 +4,13 @@ import org.deepholm.skullofzule.config.GameConfig
 import org.deepholm.skullofzule.config.GameConfig.WORLD_SIZE
 import org.deepholm.skullofzule.attributes.types.Player
 import org.deepholm.skullofzule.builders.EntityFactory
+import org.deepholm.skullofzule.builders.ZombieEntityFactory
+import org.deepholm.skullofzule.config.GameConfig.ARMOR_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.BATS_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.FUNGI_PER_LEVEL
+import org.deepholm.skullofzule.config.GameConfig.NECROSPORES_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.TIN_PER_LEVEL
+import org.deepholm.skullofzule.config.GameConfig.WEAPONS_PER_LEVEL
 import org.deepholm.skullofzule.extensions.GameEntity
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.zircon.api.Positions
@@ -34,6 +38,9 @@ class GameBuilder(val worldSize: Size3D) {
         addFungi()
         addBats()
         addTin()
+        addWeapons()
+        addArmor()
+        addNecrospores()
 
         val game = Game.create(
                 player = player,
@@ -52,6 +59,22 @@ class GameBuilder(val worldSize: Size3D) {
         return EntityFactory.newPlayer().addToWorld(
                 atLevel = GameConfig.DUNGEON_LEVELS - 1,
                 atArea = world.visibleSize().to2DSize())
+    }
+
+    private fun addWeapons() = also {
+        repeat(world.actualSize().zLength) { level ->
+            repeat(WEAPONS_PER_LEVEL) {
+                EntityFactory.newRandomWeapon().addToWorld(level)
+            }
+        }
+    }
+
+    private fun addArmor() = also {
+        repeat(world.actualSize().zLength) { level ->
+            repeat(ARMOR_PER_LEVEL) {
+                EntityFactory.newRandomArmor().addToWorld(level)
+            }
+        }
     }
 
     private fun addFungi() = also {
@@ -74,6 +97,14 @@ class GameBuilder(val worldSize: Size3D) {
         repeat(world.actualSize().zLength) { level ->
             repeat(TIN_PER_LEVEL) {
                 EntityFactory.newTin().addToWorld(level)
+            }
+        }
+    }
+
+    private fun addNecrospores() = also {
+        repeat(world.actualSize().zLength) { level ->
+            repeat(NECROSPORES_PER_LEVEL) {
+                ZombieEntityFactory.newNecrospore().addToWorld(level)
             }
         }
     }

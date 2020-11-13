@@ -1,9 +1,7 @@
 package org.deepholm.skullofzule.extensions
 
 import org.deepholm.skullofzule.GameContext
-import org.deepholm.skullofzule.attributes.EntityActions
-import org.deepholm.skullofzule.attributes.EntityPosition
-import org.deepholm.skullofzule.attributes.EntityTile
+import org.deepholm.skullofzule.attributes.*
 import org.deepholm.skullofzule.attributes.flags.BlockOccupier
 import org.deepholm.skullofzule.attributes.flags.VisionBlocker
 import org.deepholm.skullofzule.attributes.types.Combatant
@@ -74,3 +72,19 @@ inline fun <reified T : EntityType> AnyGameEntity.whenTypeIs(fn: (Entity<T, Game
         fn(this as Entity<T, GameContext>)
     }
 }
+
+val AnyGameEntity.attackValue: Int
+    get() {
+        val combat = findAttribute(CombatStats::class).map { it.attackValue }.orElse(0)
+        val equipment = findAttribute(Equipment::class).map { it.attackValue }.orElse(0)
+        val item = findAttribute(ItemCombatStats::class).map { it.attackValue }.orElse(0)
+        return combat + equipment + item
+    }
+
+val AnyGameEntity.defenseValue: Int
+    get() {
+        val combat = findAttribute(CombatStats::class).map { it.defenseValue }.orElse(0)
+        val equipment = findAttribute(Equipment::class).map { it.defenseValue }.orElse(0)
+        val item = findAttribute(ItemCombatStats::class).map { it.defenseValue }.orElse(0)
+        return combat + equipment + item
+    }

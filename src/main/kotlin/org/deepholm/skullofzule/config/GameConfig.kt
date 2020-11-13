@@ -24,6 +24,12 @@ object GameConfig {
 
     const val TIN_PER_LEVEL = 20
 
+    const val WEAPONS_PER_LEVEL = 3
+    const val ARMOR_PER_LEVEL = 3
+
+    const val NECROSPORES_PER_LEVEL = 3
+
+
     val WORLD_SIZE = Sizes.create3DSize(WINDOW_WIDTH * 2, WINDOW_HEIGHT, DUNGEON_LEVELS)
 
     fun buildAppConfig() = AppConfigs.newConfig()

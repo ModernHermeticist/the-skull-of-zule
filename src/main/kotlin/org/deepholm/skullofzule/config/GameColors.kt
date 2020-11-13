@@ -21,4 +21,8 @@ object GameColors {
 
     val BAT_MEAT_COLOR = TileColors.fromString("#EA4861")
 
+    val NECROSPORE_COLOR = TileColors.fromString("#E39FF6")
+
+    val SPORELING_COLOR = TileColors.fromString("#A45EE5")
+
 }

@@ -1,19 +1,19 @@
 package org.deepholm.skullofzule.systems
 
 import org.deepholm.skullofzule.GameContext
-import org.deepholm.skullofzule.attributes.types.EnergyUser
-import org.deepholm.skullofzule.attributes.types.Food
-import org.deepholm.skullofzule.attributes.types.inventory
+import org.deepholm.skullofzule.attributes.types.*
 import org.deepholm.skullofzule.commands.DropItem
 import org.deepholm.skullofzule.commands.Eat
 import org.deepholm.skullofzule.commands.InspectInventory
 import org.deepholm.skullofzule.config.GameConfig
 import org.deepholm.skullofzule.extensions.GameCommand
+import org.deepholm.skullofzule.extensions.GameItem
 import org.deepholm.skullofzule.views.fragment.InventoryFragment
 import org.deepholm.skullofzule.extensions.whenTypeIs
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.base.BaseFacet
 import org.hexworks.amethyst.api.entity.EntityType
+import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.Sizes
 import org.hexworks.zircon.api.builder.component.ModalBuilder
@@ -28,7 +28,7 @@ import org.hexworks.zircon.internal.component.modal.EmptyModalResult
 
 object InventoryInspector : BaseFacet<GameContext>() {
 
-    val DIALOG_SIZE = Sizes.create(33, 14)
+    val DIALOG_SIZE = Sizes.create(40, 14)
 
     override fun executeCommand(command: GameCommand<out EntityType>) = command
             .responseWhenCommandIs(InspectInventory::class) { (context, itemHolder, position) ->
@@ -55,6 +55,15 @@ object InventoryInspector : BaseFacet<GameContext>() {
                                     itemHolder.executeCommand(Eat(context, eater, food))
                                 }
                             }
+                        },
+                        onEquip = { item ->
+                            var result = Maybe.empty<GameItem>()
+                            itemHolder.whenTypeIs<EquipmentHolder> { equipmentHolder ->
+                                item.whenTypeIs<CombatItem> { combatItem ->
+                                    result = Maybe.of(equipmentHolder.equip(itemHolder.inventory, combatItem))
+                                }
+                            }
+                            result
                         })
 
                 panel.addFragment(fragment)
