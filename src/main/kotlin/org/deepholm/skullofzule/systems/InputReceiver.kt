@@ -5,10 +5,12 @@ import org.deepholm.skullofzule.attributes.types.Player
 import org.deepholm.skullofzule.commands.*
 import org.deepholm.skullofzule.extensions.GameEntity
 import org.deepholm.skullofzule.extensions.position
+import org.deepholm.skullofzule.views.dialog.HelpDialog
 import org.hexworks.amethyst.api.base.BaseBehavior
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.cobalt.logging.api.LoggerFactory
 import org.hexworks.zircon.api.data.impl.Position3D
+import org.hexworks.zircon.api.screen.Screen
 import org.hexworks.zircon.api.uievent.KeyCode
 import org.hexworks.zircon.api.uievent.KeyboardEvent
 
@@ -33,12 +35,17 @@ object InputReceiver : BaseBehavior<GameContext>() {
                 KeyCode.KEY_F -> player.moveDown(context)
                 KeyCode.KEY_P -> player.pickItemUp(currentPos, context)
                 KeyCode.KEY_I -> player.inspectInventory(currentPos, context)
+                KeyCode.KEY_H -> showHelp(context.screen)
                 else -> {
                     logger.debug("UI Event ($uiEvent) does not have a corresponding command, it is ignored.")
                 }
             }
         }
         return true
+    }
+
+    private fun showHelp(screen: Screen) {
+        screen.openModal(HelpDialog(screen))
     }
 
     private fun GameEntity<Player>.moveTo(position: Position3D, context: GameContext) {

@@ -4,6 +4,8 @@ import org.deepholm.skullofzule.world.Game
 import org.deepholm.skullofzule.GameBlock
 import org.deepholm.skullofzule.config.GameConfig
 import org.deepholm.skullofzule.events.GameLogEvent
+import org.deepholm.skullofzule.events.PlayerGainedLevel
+import org.deepholm.skullofzule.views.dialog.LevelUpDialog
 import org.deepholm.skullofzule.views.fragment.PlayerStatsFragment
 import org.deepholm.skullofzule.world.GameBuilder
 import org.hexworks.cobalt.events.api.subscribe
@@ -64,6 +66,10 @@ class PlayView(private val game: Game = GameBuilder.defaultGame()) : BaseView() 
                     withNewLine = false,
                     withTypingEffectSpeedInMs = 10
             )
+        }
+
+        Zircon.eventBus.subscribe<PlayerGainedLevel> {
+            screen.openModal(LevelUpDialog(screen, game.player))
         }
     }
 }

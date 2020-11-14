@@ -26,6 +26,7 @@ object EntityFactory {
 
     fun newPlayer() = newGameEntityOfType(Player) {
         attributes(
+                Experience(),
                 Vision(9),
                 EntityPosition(),
                 BlockOccupier,
@@ -41,7 +42,7 @@ object EntityFactory {
                         initialWeapon = newClub(),
                         initialArmor = newJacket()))
         behaviors(InputReceiver, EnergyExpender)
-        facets(Movable, CameraMover, StairClimber, StairDescender,
+        facets(ExperienceAccumulator, Movable, CameraMover, StairClimber, StairDescender,
                 Attackable, Destructible, ItemPicker, InventoryInspector, ItemDropper,
                 EnergyExpender, DigestiveSystem)
     }

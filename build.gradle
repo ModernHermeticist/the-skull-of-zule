@@ -21,10 +21,13 @@ repositories {
 apply plugin: 'kotlin'
 apply plugin: "com.github.johnrengelman.shadow"
 
+
+
 configurations {
     shadow
     compile.extendsFrom provided
     provided.extendsFrom shadow
+    compile.exclude(group: "ch.qos.logback")
 }
 
 shadowJar {
