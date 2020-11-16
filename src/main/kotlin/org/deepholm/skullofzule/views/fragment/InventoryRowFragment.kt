@@ -22,10 +22,15 @@ class InventoryRowFragment(width: Int, item: GameItem) : Fragment {
             .withText("Equip")
             .build()
 
+    val examineButton = Components.button()
+            .withText("Examine")
+            .build()
+
     override val root = Components.hbox().withSpacing(1).withSize(width, 1).build().apply {
         addComponent(Components.icon().withIcon(item.iconTile))
         addComponent(Components.label().withSize(InventoryFragment.NAME_COLUMN_WIDTH, 1).withText(item.name))
         addComponent(dropButton)
+        addComponent(examineButton)
         item.whenTypeIs<Food> { addComponent(eatButton) }
         item.whenTypeIs<CombatItem> { addComponent(equipButton) }
     }

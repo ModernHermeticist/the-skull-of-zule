@@ -22,8 +22,9 @@ object ZombieEntityFactory {
                         addItem(newRandomWeapon())
                         addItem(newRandomArmor())
                     },
-                    EntityActions(Attack::class))
-        facets(DivideZombie, Movable, Attackable, ItemDropper, LootDropper, Destructible)
+                    EntityActions(Attack::class),
+                    SpawnsOnDeath.create(entity = newSporeling()))
+        facets(Movable, Attackable, ItemDropper, LootDropper, Destructible, Spawner)
         behaviors(HunterSeeker or Wanderer)
     }
 

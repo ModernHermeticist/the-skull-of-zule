@@ -10,6 +10,7 @@ import org.deepholm.skullofzule.extensions.GameCommand
 import org.deepholm.skullofzule.extensions.GameItem
 import org.deepholm.skullofzule.views.fragment.InventoryFragment
 import org.deepholm.skullofzule.extensions.whenTypeIs
+import org.deepholm.skullofzule.views.dialog.ExamineDialog
 import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.base.BaseFacet
 import org.hexworks.amethyst.api.entity.EntityType
@@ -28,7 +29,7 @@ import org.hexworks.zircon.internal.component.modal.EmptyModalResult
 
 object InventoryInspector : BaseFacet<GameContext>() {
 
-    val DIALOG_SIZE = Sizes.create(40, 14)
+    val DIALOG_SIZE = Sizes.create(45, 14)
 
     override fun executeCommand(command: GameCommand<out EntityType>) = command
             .responseWhenCommandIs(InspectInventory::class) { (context, itemHolder, position) ->
@@ -64,6 +65,9 @@ object InventoryInspector : BaseFacet<GameContext>() {
                                 }
                             }
                             result
+                        },
+                        onExamine = { item ->
+                            screen.openModal(ExamineDialog(screen, item))
                         })
 
                 panel.addFragment(fragment)

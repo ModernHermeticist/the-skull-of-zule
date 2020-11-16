@@ -15,7 +15,7 @@ object Attackable : BaseFacet<GameContext>() {
 
     override fun executeCommand(command: GameCommand<out EntityType>) = command.responseWhenCommandIs(Attack::class) {(context, attacker, target) ->
         if (attacker.isPlayer || target.isPlayer) {
-            val damage = Math.max(0, attacker.attackValue - target.defenseValue)
+            val damage = 0.coerceAtLeast(attacker.attackValue - target.defenseValue)
             val finalDamage = (Math.random() * damage).toInt() + 1
             target.combatStats.hp -= finalDamage
             logGameEvent("The $attacker hits the $target for $finalDamage!")

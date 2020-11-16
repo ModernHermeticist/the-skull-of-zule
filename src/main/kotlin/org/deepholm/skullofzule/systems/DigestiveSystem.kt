@@ -4,6 +4,7 @@ import org.deepholm.skullofzule.GameContext
 import org.deepholm.skullofzule.attributes.EnergyLevel
 import org.deepholm.skullofzule.attributes.types.energy
 import org.deepholm.skullofzule.attributes.types.energyLevel
+import org.deepholm.skullofzule.commands.Destroy
 import org.deepholm.skullofzule.commands.Eat
 import org.deepholm.skullofzule.extensions.GameCommand
 import org.deepholm.skullofzule.functions.logGameEvent

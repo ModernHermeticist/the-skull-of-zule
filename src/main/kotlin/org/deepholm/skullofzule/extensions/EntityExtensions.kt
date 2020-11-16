@@ -73,6 +73,9 @@ inline fun <reified T : EntityType> AnyGameEntity.whenTypeIs(fn: (Entity<T, Game
     }
 }
 
+val AnyGameEntity.entityToSpawn: GameEntity<EntityType>
+    get() = findAttribute(SpawnsOnDeath::class).map { it.entity }.orElse(this)
+
 val AnyGameEntity.attackValue: Int
     get() {
         val combat = findAttribute(CombatStats::class).map { it.attackValue }.orElse(0)

@@ -21,19 +21,19 @@ import kotlin.math.pow
 object ExperienceAccumulator : BaseFacet<GameContext>() {
 
     override fun executeCommand(command: GameCommand<out EntityType>) = command.responseWhenCommandIs(EntityDestroyed::class) { (_, defender, attacker) ->
-        attacker.whenTypeIs<ExperienceGainer> { experienceGainer ->   // 1
+        attacker.whenTypeIs<ExperienceGainer> { experienceGainer ->
             val xp = experienceGainer.experience
             val stats = experienceGainer.combatStats
-            val defenderHp = defender.findAttribute(CombatStats::class).map { it.maxHp }.orElse(0)          // 2
-            val amount = (defenderHp + defender.attackValue + defender.defenseValue) - xp.currentLevel * 2    // 3
+            val defenderHp = defender.findAttribute(CombatStats::class).map { it.maxHp }.orElse(0)
+            val amount = (defenderHp + defender.attackValue + defender.defenseValue) - xp.currentLevel * 2
             if (amount > 0) {
                 xp.currentXP += amount
-                while (xp.currentXP > xp.currentLevel.toDouble().pow(1.5) * 20) {                 // 4
+                while (xp.currentXP > xp.currentLevel.toDouble().pow(1.5) * 20) {
                     xp.currentLevel++
                     logGameEvent("$attacker advanced to level ${xp.currentLevel}.")
-                    stats.hpProperty.value = min(stats.hp + xp.currentLevel * 2, stats.maxHp)           // 5
+                    stats.hpProperty.value = min(stats.hp + xp.currentLevel * 2, stats.maxHp)
                     if (attacker.isPlayer) {
-                        Zircon.eventBus.publish(PlayerGainedLevel)                                      // 6
+                        Zircon.eventBus.publish(PlayerGainedLevel)
                     }
                 }
             }

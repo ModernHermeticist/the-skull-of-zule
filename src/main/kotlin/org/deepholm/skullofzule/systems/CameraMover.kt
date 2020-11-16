@@ -18,7 +18,7 @@ object CameraMover : BaseFacet<GameContext>() {
                 val halfHeight = world.visibleSize().yLength / 2
                 val halfWidth = world.visibleSize().xLength / 2
                 val currentPosition = source.position
-                when {                                                      // 3
+                when {
                     previousPosition.y > currentPosition.y && screenPos.y < halfHeight -> {
                         world.scrollOneBackward()
                     }
