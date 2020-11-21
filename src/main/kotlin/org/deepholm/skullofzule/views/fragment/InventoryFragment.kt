@@ -4,6 +4,7 @@ import org.deepholm.skullofzule.attributes.Inventory
 import org.deepholm.skullofzule.commands.Eat
 import org.deepholm.skullofzule.config.GameConfig
 import org.deepholm.skullofzule.extensions.GameItem
+import org.deepholm.skullofzule.extensions.isEmptyItem
 import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.cobalt.datatypes.extensions.map
 import org.hexworks.zircon.api.Components
@@ -47,7 +48,7 @@ class InventoryFragment(inventory: Inventory,
             equipButton.handleComponentEvents(ComponentEventType.ACTIVATED) {
                 onEquip(item).map { oldItem ->
                     list.removeComponent(this.root)
-                    addRow(width, oldItem, list)
+                    if (!oldItem.isEmptyItem) addRow(width, oldItem, list)
                 }
                 Processed
             }

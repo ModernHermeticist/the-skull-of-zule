@@ -1,35 +1,53 @@
 package org.deepholm.skullofzule.attributes
 
+import org.deepholm.skullofzule.attributes.flags.EmptyItem
 import org.deepholm.skullofzule.attributes.types.*
-import org.deepholm.skullofzule.extensions.GameCombatItem
-import org.deepholm.skullofzule.extensions.GameEntity
-import org.deepholm.skullofzule.extensions.whenTypeIs
+import org.deepholm.skullofzule.extensions.*
+import org.deepholm.skullofzule.extensions.attackValue
+import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.cobalt.databinding.api.createPropertyFrom
 import org.hexworks.cobalt.databinding.api.property.Property
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.Component
+import kotlin.reflect.KFunction
+import kotlin.reflect.KProperty1
+import kotlin.reflect.full.memberFunctions
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.reflect
 
 class Equipment(initialWeapon: GameEntity<Weapon>,
-                initialArmor: GameEntity<Armor>) : DisplayableAttribute {
+                initialChestArmor: GameEntity<ChestArmor>,
+                initialLegArmor: GameEntity<LegArmor>,
+                initialHeadArmor: GameEntity<HeadArmor>,
+                initialHandArmor: GameEntity<HandArmor>,
+                initialFeetArmor: GameEntity<FeetArmor>,
+                initialShoulderArmor: GameEntity<ShoulderArmor>,
+                initialWaistArmor: GameEntity<WaistArmor>,
+                initialBackArmor: GameEntity<BackArmor>,
+                initialLeftRing: GameEntity<Ring>,
+                initialRightRing: GameEntity<Ring>,
+                initialLeftEarring: GameEntity<Earring>,
+                initialRightEarring: GameEntity<Earring>,
+                initialRelic: GameEntity<Relic>) : DisplayableAttribute {
 
     private val weaponProperty: Property<GameEntity<Weapon>> = createPropertyFrom(initialWeapon)
-    private val armorProperty: Property<GameEntity<Armor>> = createPropertyFrom(initialArmor)
+    private val chestArmorProperty: Property<GameEntity<ChestArmor>> = createPropertyFrom(initialChestArmor)
 
     val attackValue: Int
-        get() = weaponProperty.value.attackValue + armorProperty.value.attackValue
+        get() = weaponProperty.value.attackValue + chestArmorProperty.value.attackValue
 
     val defenseValue: Int
-        get() = armorProperty.value.defenseValue + armorProperty.value.defenseValue
+        get() = weaponProperty.value.defenseValue + chestArmorProperty.value.defenseValue
 
     val armorName: String
-        get() = armorProperty.value.name
+        get() = chestArmorProperty.value.name
 
     val weaponName: String
         get() = weaponProperty.value.name
 
 
     private val weapon: GameEntity<Weapon> by weaponProperty.asDelegate()
-    private val armor: GameEntity<Armor> by armorProperty.asDelegate()
+    private val armor: GameEntity<Armor> by chestArmorProperty.asDelegate()
 
     private val weaponStats: String
         get() = " A: ${weapon.attackValue} D: ${weapon.defenseValue}"
@@ -41,7 +59,7 @@ class Equipment(initialWeapon: GameEntity<Weapon>,
         combatItem.whenTypeIs<Weapon> {
             return equipWeapon(inventory, it)
         }
-        combatItem.whenTypeIs<Armor> {
+        combatItem.whenTypeIs<ChestArmor> {
             return equipArmor(inventory, it)
         }
         throw IllegalStateException("Combat item is not Weapon or Armor.")
@@ -55,11 +73,11 @@ class Equipment(initialWeapon: GameEntity<Weapon>,
         return oldWeapon
     }
 
-    private fun equipArmor(inventory: Inventory, newArmor: GameEntity<Armor>): GameCombatItem {
+    private fun equipArmor(inventory: Inventory, newArmor: GameEntity<ChestArmor>): GameCombatItem {
         val oldArmor = armor
         inventory.removeItem(newArmor)
-        inventory.addItem(oldArmor)
-        armorProperty.value = newArmor
+        if (!oldArmor.isEmptyItem) inventory.addItem(oldArmor)
+        chestArmorProperty.value = newArmor
         return oldArmor
     }
 
@@ -74,7 +92,7 @@ class Equipment(initialWeapon: GameEntity<Weapon>,
                 .withSize(width - 1, 1)
                 .build()
 
-        val armorIcon = Components.icon().withIcon(armorProperty.value.iconTile).build()
+        val armorIcon = Components.icon().withIcon(chestArmorProperty.value.iconTile).build()
         val armorNameLabel = Components.label()
                 .withText(armorName)
                 .withSize(width - 2, 1)
@@ -90,7 +108,7 @@ class Equipment(initialWeapon: GameEntity<Weapon>,
             weaponStatsLabel.textProperty.value = weaponStats
         }
 
-        armorProperty.onChange {
+        chestArmorProperty.onChange {
             armorIcon.iconProperty.value = armor.iconTile
             armorNameLabel.textProperty.value = armor.name
             armorStatsLabel.textProperty.value = armorStats

@@ -2,15 +2,18 @@ package org.deepholm.skullofzule.world
 
 import org.deepholm.skullofzule.*
 import org.deepholm.skullofzule.attributes.Vision
+import org.deepholm.skullofzule.attributes.types.Item
 import org.deepholm.skullofzule.builders.GameBlockFactory
 import org.deepholm.skullofzule.extensions.GameEntity
 import org.deepholm.skullofzule.extensions.blocksVision
+import org.deepholm.skullofzule.extensions.filterType
 import org.deepholm.skullofzule.extensions.position
 import org.hexworks.amethyst.api.Engine
 import org.hexworks.amethyst.api.Engines
 import org.hexworks.amethyst.api.entity.Entity
 import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.cobalt.datatypes.Maybe
+import org.hexworks.cobalt.datatypes.extensions.flatMap
 import org.hexworks.cobalt.datatypes.extensions.fold
 import org.hexworks.cobalt.datatypes.extensions.map
 import org.hexworks.zircon.api.Positions
@@ -174,6 +177,11 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
                 && this.z == other.z
                 && abs(x - other.x) + abs(y - other.y) <= radius
     }
+
+    fun findTopItem(position: Position3D) =
+            fetchBlockAt(position).flatMap { block ->
+                Maybe.ofNullable(block.entities.filterType<Item>().firstOrNull())
+            }
 
     companion object {
         private val DEFAULT_BLOCK = GameBlockFactory.floor()

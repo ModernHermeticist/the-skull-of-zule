@@ -6,13 +6,13 @@ import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.cobalt.databinding.api.createPropertyFrom
 import org.hexworks.cobalt.databinding.api.property.Property
 
-data class SpawnsOnDeath(val entityProperty: Property<GameEntity<EntityType>>): Attribute {
+data class SpawnsOnDeath(val entityProperty: Property<() -> GameEntity<EntityType>>): Attribute {
 
-    val entity: GameEntity<EntityType> by entityProperty.asDelegate()
+    val entity: () -> GameEntity<EntityType> by entityProperty.asDelegate()
 
     companion object {
 
-        fun create(entity: GameEntity<EntityType>) =
+        fun create(entity: () -> GameEntity<EntityType>) =
                 SpawnsOnDeath(entityProperty = createPropertyFrom(entity))
     }
 }

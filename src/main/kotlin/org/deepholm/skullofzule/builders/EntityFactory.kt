@@ -7,8 +7,10 @@ import org.hexworks.amethyst.api.Entities
 import org.hexworks.amethyst.api.builder.EntityBuilder
 import org.hexworks.amethyst.api.entity.EntityType
 import org.deepholm.skullofzule.attributes.flags.BlockOccupier
+import org.deepholm.skullofzule.attributes.flags.EmptyItem
 import org.deepholm.skullofzule.attributes.flags.VisionBlocker
 import org.deepholm.skullofzule.attributes.types.*
+import org.deepholm.skullofzule.builders.ZombieEntityFactory.newNecrospore
 import org.deepholm.skullofzule.commands.Attack
 import org.deepholm.skullofzule.commands.Dig
 import org.deepholm.skullofzule.entities.FogOfWar
@@ -32,6 +34,7 @@ object EntityFactory {
                 BlockOccupier,
                 EntityTile(GameTileRepository.PLAYER),
                 EntityActions(Dig::class, Attack::class),
+                GoldPieceCounter(),
                 CombatStats.create(
                         maxHp = 100,
                         attackValue = 10,
@@ -40,9 +43,21 @@ object EntityFactory {
                 EnergyLevel(1000,1000),
                 Equipment(
                         initialWeapon = newClub(),
-                        initialArmor = newJacket()))
+                        initialChestArmor = newEmptyChestArmor(),
+                        initialLegArmor = newEmptyLegArmor(),
+                        initialHeadArmor = newEmptyHeadArmor(),
+                        initialBackArmor = newEmptyBackArmor(),
+                        initialFeetArmor = newEmptyFeetArmor(),
+                        initialHandArmor = newEmptyHandArmor(),
+                        initialShoulderArmor = newEmptyShoulderArmor(),
+                        initialWaistArmor = newEmptyWaistArmor(),
+                        initialLeftEarring = newEmptyEarring(),
+                        initialRightEarring = newEmptyEarring(),
+                        initialLeftRing = newEmptyRing(),
+                        initialRightRing = newEmptyRing(),
+                        initialRelic = newEmptyRelic()))
         behaviors(InputReceiver, EnergyExpender)
-        facets(ExperienceAccumulator, Movable, CameraMover, StairClimber, StairDescender,
+        facets(GoldPieceGatherer, ExperienceAccumulator, Movable, CameraMover, StairClimber, StairDescender,
                 Attackable, Destructible, ItemPicker, InventoryInspector, ItemDropper,
                 EnergyExpender, DigestiveSystem)
     }
@@ -69,8 +84,14 @@ object EntityFactory {
         facets(Diggable)
     }
 
-    fun newFungus(fungusSpread: FungusSpread = FungusSpread()) = newGameEntityOfType(Fungus) {
+    fun newFungus(fungusSpread: FungusSpread = FungusSpread(),
+                    timedEntitySpawner: TimedEntitySpawner = TimedEntitySpawner(
+                            { newNecrospore() },
+                            1,
+                            10,
+                            0)) = newGameEntityOfType(Fungus) {
         attributes(
+                timedEntitySpawner,
                 BlockOccupier,
                 EntityPosition(),
                 EntityTile(GameTileRepository.FUNGUS),
@@ -79,8 +100,9 @@ object EntityFactory {
                         maxHp = 10,
                         attackValue = 0,
                         defenseValue = 0
-                ))
-        behaviors(FungusGrowth)
+                ),
+                )
+        behaviors(FungusGrowth, TimedEntitySpawn)
         facets(Attackable, Destructible)
     }
 
@@ -123,12 +145,21 @@ object EntityFactory {
         EntityTile(GameTileRepository.TIN))
     }
 
-    fun newBatMeat() = newGameEntityOfType(BatMeat) {
+    fun newGoldPiece() = newGameEntityOfType(GoldPiece) {
         attributes(ItemIcon(Tiles.newBuilder()
-                .withName("Meatball")       // 1
+                .withName("Gold piece")
                 .withTileset(GraphicalTilesetResources.nethack16x16())
                 .buildGraphicTile()),
-                NutritionalValue(750),  // 2
+        EntityPosition(),
+        EntityTile(GameTileRepository.GOLD_PIECE))
+    }
+
+    fun newBatMeat() = newGameEntityOfType(BatMeat) {
+        attributes(ItemIcon(Tiles.newBuilder()
+                .withName("Meatball")
+                .withTileset(GraphicalTilesetResources.nethack16x16())
+                .buildGraphicTile()),
+                NutritionalValue(750),
                 EntityPosition(),
                 EntityTile(GameTileRepository.BAT_MEAT))
     }
@@ -225,4 +256,38 @@ object EntityFactory {
                         .withTileset(GraphicalTilesetResources.nethack16x16())
                         .buildGraphicTile()))
     }
+
+    fun newEmptyChestArmor() = newGameEntityOfType(EmptyChestArmor) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyLegArmor() = newGameEntityOfType(EmptyLegArmor) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyHeadArmor() = newGameEntityOfType(EmptyHeadArmor) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyHandArmor() = newGameEntityOfType(EmptyHandArmor) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyFeetArmor() = newGameEntityOfType(EmptyFeetArmor) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyShoulderArmor() = newGameEntityOfType(EmptyShoulderArmor) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyWaistArmor() = newGameEntityOfType(EmptyWaistArmor) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyBackArmor() = newGameEntityOfType(EmptyBackArmor) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyRing() = newGameEntityOfType(EmptyRing) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyEarring() = newGameEntityOfType(EmptyEarring) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
+    fun newEmptyRelic() = newGameEntityOfType(EmptyRelic) {
+        attributes(EmptyItem, ItemIcon(Tiles.newBuilder()
+                .withName("statue of an invisible monster").withTileset(GraphicalTilesetResources.nethack16x16()).buildGraphicTile())) }
 }

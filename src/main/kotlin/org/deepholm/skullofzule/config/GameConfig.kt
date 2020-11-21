@@ -25,6 +25,8 @@ object GameConfig {
 
     const val TIN_PER_LEVEL = 20
 
+    const val GOLD_PIECES_PER_LEVEL = 12
+
     const val WEAPONS_PER_LEVEL = 3
     const val ARMOR_PER_LEVEL = 3
 

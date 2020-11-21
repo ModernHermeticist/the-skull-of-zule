@@ -2,7 +2,8 @@ package org.deepholm.skullofzule.attributes.types
 
 import org.hexworks.amethyst.api.base.BaseEntityType
 
-object Player : BaseEntityType(name = "player"), Combatant, ItemHolder, EnergyUser, EquipmentHolder, ExperienceGainer
+object Player : BaseEntityType(name = "player"),
+        Combatant, ItemHolder, EnergyUser, EquipmentHolder, ExperienceGainer, GoldPieceHolder
 
 object Wall: BaseEntityType(name = "wall")
 
@@ -18,6 +19,10 @@ object Bat : BaseEntityType(name = "bat"), Combatant, ItemHolder
 object Tin : BaseEntityType(
         name = "Tin",
         description = "A small piece of Tin. What might one do with such a thing?"), Item
+
+object GoldPiece: BaseEntityType(
+        name = "Gold Piece",
+        description = "A single gold piece. May be used to amass the wealth of nations."), Item
 
 object BatMeat : BaseEntityType(
         name = "Bat Meat",
@@ -37,15 +42,15 @@ object Staff : BaseEntityType(
 
 object LightArmor : BaseEntityType(
         name = "Leather Tunic",
-        description = "A tunic made of rugged leather. It is very comfortable."), Armor
+        description = "A tunic made of rugged leather. It is very comfortable."), ChestArmor
 
 object MediumArmor : BaseEntityType(
         name = "Chainmail",
-        description = "A sturdy chainmail armor made of interlocking iron chains."), Armor
+        description = "A sturdy chainmail armor made of interlocking iron chains."), ChestArmor
 
 object HeavyArmor : BaseEntityType(
         name = "Platemail",
-        description = "A heavy and shiny platemail armor made of bronze."), Armor
+        description = "A heavy and shiny platemail armor made of bronze."), ChestArmor
 
 object Club : BaseEntityType(
         name = "Club",
@@ -53,4 +58,48 @@ object Club : BaseEntityType(
 
 object Jacket : BaseEntityType(
         name = "Leather Jacket",
-        description = "Dirty and rugged jacket made of leather."), Armor
+        description = "Dirty and rugged jacket made of leather."), ChestArmor
+
+object EmptyChestArmor : BaseEntityType(
+        name = "",
+        description = ""), EmptyChestArmorHolder
+
+object EmptyLegArmor : BaseEntityType(
+        name = "",
+        description = ""), EmptyLegArmorHolder
+
+object EmptyHeadArmor : BaseEntityType(
+        name = "",
+        description = ""), EmptyHeadArmorHolder
+
+object EmptyHandArmor : BaseEntityType(
+        name = "",
+        description = ""), EmptyHandArmorHolder
+
+object EmptyFeetArmor : BaseEntityType(
+        name = "",
+        description = ""), EmptyFeetArmorHolder
+
+object EmptyShoulderArmor : BaseEntityType(
+        name = "",
+        description = ""), EmptyShoulderArmorHolder
+
+object EmptyWaistArmor : BaseEntityType(
+        name = "",
+        description = ""), EmptyWaistArmorHolder
+
+object EmptyBackArmor : BaseEntityType(
+        name = "",
+        description = ""), EmptyBackArmorHolder
+
+object EmptyRing : BaseEntityType(
+        name = "",
+        description = ""), EmptyRingHolder
+
+object EmptyEarring : BaseEntityType(
+        name = "",
+        description = ""), EmptyEarringHolder
+
+object EmptyRelic : BaseEntityType(
+        name = "",
+        description = ""), EmptyRelicHolder

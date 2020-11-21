@@ -63,6 +63,12 @@ object GameTileRepository {
             .withForegroundColor(GameColors.TIN_COLOR)
             .buildCharacterTile()
 
+    val GOLD_PIECE = Tiles.newBuilder()
+            .withCharacter(',')
+            .withBackgroundColor(GameColors.FLOOR_BACKGROUND)
+            .withForegroundColor(GameColors.GOLD_PIECE_COLOR)
+            .buildCharacterTile()
+
     val BAT_MEAT = Tiles.newBuilder()
             .withCharacter('m')
             .withBackgroundColor(GameColors.FLOOR_BACKGROUND)

@@ -13,18 +13,21 @@ import org.hexworks.amethyst.api.Consumed
 import org.hexworks.amethyst.api.Pass
 import org.hexworks.amethyst.api.base.BaseFacet
 import org.hexworks.amethyst.api.entity.EntityType
+import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.impl.Position3D
+import org.hexworks.zircon.api.data.impl.Size3D
+import kotlin.random.Random
 
 object Spawner : BaseFacet<GameContext>() {
 
     override fun executeCommand(command: GameCommand<out EntityType>) = command.responseWhenCommandIs(Spawn::class) { (context, source,
         entityToSpawn, numberToSpawn) ->
-        (0..numberToSpawn).forEach { _ ->
-            val x = (Math.random() * 2 - 1).toInt()
-            val y = (Math.random() * 2 - 1).toInt()
-            context.world.addEntity(entityToSpawn, source.position.withRelative(Position3D.create(x, y, source.position.z)))
+        (1..numberToSpawn).forEach { _ ->
+            val x = Random.nextInt(1,4)
+            val y = Random.nextInt(1,4)
+            context.world.addAtEmptyPosition(entityToSpawn.get().invoke(), offset = source.position, size = Size3D.from2DSize(Size.create(x, y)))
+            logGameEvent("$entityToSpawn erupts out of the $source!")
         }
-        logGameEvent("$entityToSpawn erupt out of the $source!")
         Consumed
     }
 }

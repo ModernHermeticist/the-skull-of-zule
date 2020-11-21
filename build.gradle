@@ -27,7 +27,7 @@ configurations {
     shadow
     compile.extendsFrom provided
     provided.extendsFrom shadow
-    compile.exclude(group: "ch.qos.logback")
+    //compile.exclude(group: "ch.qos.logback")
 }
 
 shadowJar {

@@ -8,6 +8,7 @@ import org.deepholm.skullofzule.builders.ZombieEntityFactory
 import org.deepholm.skullofzule.config.GameConfig.ARMOR_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.BATS_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.FUNGI_PER_LEVEL
+import org.deepholm.skullofzule.config.GameConfig.GOLD_PIECES_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.NECROSPORES_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.TIN_PER_LEVEL
 import org.deepholm.skullofzule.config.GameConfig.WEAPONS_PER_LEVEL
@@ -38,6 +39,7 @@ class GameBuilder(val worldSize: Size3D) {
         addFungi()
         addBats()
         addTin()
+        addGoldPieces()
         addWeapons()
         addArmor()
         addNecrospores()
@@ -97,6 +99,14 @@ class GameBuilder(val worldSize: Size3D) {
         repeat(world.actualSize().zLength) { level ->
             repeat(TIN_PER_LEVEL) {
                 EntityFactory.newTin().addToWorld(level)
+            }
+        }
+    }
+
+    private fun addGoldPieces() = also {
+        repeat(world.actualSize().zLength) { level ->
+            repeat(GOLD_PIECES_PER_LEVEL) {
+                EntityFactory.newGoldPiece().addToWorld(level)
             }
         }
     }

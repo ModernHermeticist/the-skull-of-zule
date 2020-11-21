@@ -1,12 +1,10 @@
 package org.deepholm.skullofzule.systems
 
 import org.deepholm.skullofzule.GameContext
-import org.deepholm.skullofzule.attributes.SpawnsOnDeath
 import org.deepholm.skullofzule.commands.Destroy
 import org.deepholm.skullofzule.commands.EntityDestroyed
 import org.deepholm.skullofzule.commands.Spawn
 import org.deepholm.skullofzule.extensions.GameCommand
-import org.deepholm.skullofzule.extensions.attackValue
 import org.deepholm.skullofzule.extensions.entityToSpawn
 import org.deepholm.skullofzule.functions.logGameEvent
 import org.hexworks.amethyst.api.Consumed
