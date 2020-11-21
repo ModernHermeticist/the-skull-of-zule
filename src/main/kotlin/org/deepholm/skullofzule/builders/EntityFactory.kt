@@ -27,8 +27,9 @@ fun <T: EntityType> newGameEntityOfType(type: T, init: EntityBuilder<T, GameCont
 
 object EntityFactory {
 
-    fun newPlayer() = newGameEntityOfType(Player) {
+    fun newPlayer(turnTracker: TurnTracker = TurnTracker()) = newGameEntityOfType(Player) {
         attributes(
+                turnTracker,
                 Experience(),
                 Vision(9),
                 EntityPosition(),
@@ -57,7 +58,7 @@ object EntityFactory {
                         initialLeftRing = newEmptyRing(),
                         initialRightRing = newEmptyRing(),
                         initialRelic = newEmptyRelic()))
-        behaviors(InputReceiver, EnergyExpender)
+        behaviors(InputReceiver, EnergyExpender, TurnCounter)
         facets(GoldPieceGatherer, ExperienceAccumulator, Movable, CameraMover, StairClimber, StairDescender,
                 Attackable, Destructible, ItemPicker, InventoryInspector, ItemDropper,
                 EnergyExpender, DigestiveSystem)
@@ -88,8 +89,9 @@ object EntityFactory {
     fun newFungus(fungusSpread: FungusSpread = FungusSpread(),
                     timedEntitySpawner: TimedEntitySpawner = TimedEntitySpawner(
                             { newFungalZombie() },
-                            25,
-                            0)) = newGameEntityOfType(Fungus) {
+                            50,
+                            0,
+                            10)) = newGameEntityOfType(Fungus) {
         attributes(
                 timedEntitySpawner,
                 BlockOccupier,

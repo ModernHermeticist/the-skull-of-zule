@@ -16,12 +16,10 @@ object TimedEntitySpawn: BaseBehavior<GameContext>(TimedEntitySpawner::class) {
     override fun update(entity: GameEntity<out EntityType>, context: GameContext): Boolean {
         val world = context.world
         val timedEntitySpawner = entity.tryToFindAttribute(TimedEntitySpawner::class)
-        val (entityToSpawn, maxTurns, turnsPassed) = timedEntitySpawner
-        return if (canSpawn(maxTurns, turnsPassed) && Random.nextInt(0,100) > 50) {
+        val (entityToSpawn, maxTurns, turnsPassed, chanceToSpawn) = timedEntitySpawner
+        return if (canSpawn(maxTurns, turnsPassed) && Random.nextInt(0,100) <= chanceToSpawn) {
             world.findEmptyLocationWithin(
-                    offset = entity.position
-                            .withRelativeX(-1)
-                            .withRelativeY(-1),
+                    offset = entity.position,
                     size = Sizes.create3DSize(3,3,0)).map { emptyLocation ->
                 world.addEntity(entityToSpawn.invoke(), emptyLocation)
             }
