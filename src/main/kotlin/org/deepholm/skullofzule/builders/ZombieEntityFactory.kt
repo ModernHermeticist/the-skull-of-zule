@@ -2,6 +2,7 @@ package org.deepholm.skullofzule.builders
 
 import org.deepholm.skullofzule.attributes.*
 import org.deepholm.skullofzule.attributes.flags.BlockOccupier
+import org.deepholm.skullofzule.attributes.types.FungalZombie
 import org.deepholm.skullofzule.attributes.types.Necrospore
 import org.deepholm.skullofzule.attributes.types.Sporeling
 import org.deepholm.skullofzule.builders.EntityFactory.newRandomArmor
@@ -37,5 +38,16 @@ object ZombieEntityFactory {
                     EntityActions(Attack::class))
         facets(Movable, Attackable, Destructible)
         behaviors(Wanderer)
+    }
+
+    fun newFungalZombie() = newGameEntityOfType(FungalZombie) {
+        attributes(BlockOccupier, EntityPosition(), EntityTile(ZombieTileTypes.FUNGALZOMBIE), Vision(5),
+                CombatStats.create(
+                        maxHp = 10,
+                        attackValue = 4,
+                        defenseValue = 2),
+                EntityActions(Attack::class))
+        facets(Movable, Attackable, Destructible)
+        behaviors(HunterSeeker or Wanderer)
     }
 }

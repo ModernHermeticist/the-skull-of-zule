@@ -5,5 +5,5 @@ import org.hexworks.amethyst.api.Attribute
 import org.hexworks.amethyst.api.entity.EntityType
 
 data class TimedEntitySpawner(val entity: () -> GameEntity<EntityType>,
-                              val minimumTurns: Int, val maximumTurnsProperty: Int,
+                              val maximumTurnsProperty: Int,
                               var turnsPassed: Int): Attribute

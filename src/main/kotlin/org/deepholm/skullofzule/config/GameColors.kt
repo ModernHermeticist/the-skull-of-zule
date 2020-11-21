@@ -27,4 +27,6 @@ object GameColors {
 
     val SPORELING_COLOR = TileColors.fromString("#A45EE5")
 
+    val FUNGALZOMBIE_COLOR = TileColors.fromString("#CC5500")
+
 }

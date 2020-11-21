@@ -7,3 +7,6 @@ object Necrospore: BaseEntityType(
 
 object Sporeling: BaseEntityType(
         name = "sporeling"), Combatant, ItemHolder
+
+object FungalZombie: BaseEntityType(
+        name = "fungalzombie"), Combatant

@@ -10,6 +10,7 @@ import org.deepholm.skullofzule.attributes.flags.BlockOccupier
 import org.deepholm.skullofzule.attributes.flags.EmptyItem
 import org.deepholm.skullofzule.attributes.flags.VisionBlocker
 import org.deepholm.skullofzule.attributes.types.*
+import org.deepholm.skullofzule.builders.ZombieEntityFactory.newFungalZombie
 import org.deepholm.skullofzule.builders.ZombieEntityFactory.newNecrospore
 import org.deepholm.skullofzule.commands.Attack
 import org.deepholm.skullofzule.commands.Dig
@@ -86,9 +87,8 @@ object EntityFactory {
 
     fun newFungus(fungusSpread: FungusSpread = FungusSpread(),
                     timedEntitySpawner: TimedEntitySpawner = TimedEntitySpawner(
-                            { newNecrospore() },
-                            1,
-                            10,
+                            { newFungalZombie() },
+                            25,
                             0)) = newGameEntityOfType(Fungus) {
         attributes(
                 timedEntitySpawner,

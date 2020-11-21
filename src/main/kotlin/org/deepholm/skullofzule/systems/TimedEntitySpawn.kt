@@ -17,7 +17,7 @@ object TimedEntitySpawn: BaseBehavior<GameContext>(TimedEntitySpawner::class) {
         val world = context.world
         val timedEntitySpawner = entity.tryToFindAttribute(TimedEntitySpawner::class)
         val (entityToSpawn, maxTurns, turnsPassed) = timedEntitySpawner
-        return if (canSpawn(maxTurns, turnsPassed) && Random.nextBoolean()) {
+        return if (canSpawn(maxTurns, turnsPassed) && Random.nextInt(0,100) > 50) {
             world.findEmptyLocationWithin(
                     offset = entity.position
                             .withRelativeX(-1)
