@@ -10,10 +10,41 @@ import kotlin.random.Random
 
 class WorldBuilder(private val worldSize: Size3D) {
 
+    private val worldSizeY = worldSize.yLength
+
     private val width = worldSize.xLength
     private val height = worldSize.zLength
     private var blocks: MutableMap<Position3D, GameBlock> = mutableMapOf()
     private val depth = worldSize.zLength
+    private val centerWidth = width / 2
+    private val centerWorldSizeY = worldSizeY / 2
+
+    private val subWorld = ArrayList<Size3D>()
+
+
+
+
+
+    fun buildV2(visibleSize: Size3D): World = World(blocks, visibleSize, worldSize)
+
+    fun makeRooms(): WorldBuilder {
+        return fillWithWalls().split()
+    }
+
+    fun fillWithWalls(): WorldBuilder {
+        forAllPositions { pos ->
+            blocks[pos] = GameBlockFactory.floor()
+        }
+        return this
+    }
+
+    fun split(): WorldBuilder {
+        for (i in 0 until worldSizeY) {
+            val pos = Position3D.create(centerWidth, i, 1)
+            blocks[pos] = GameBlockFactory.wall()
+        }
+        return this
+    }
 
     fun makeCaves(): WorldBuilder {
         return randomizeTiles().smooth(8).connectLevels()

@@ -42,7 +42,7 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
     private val engine: Engine<GameContext> = Engines.newEngine()
 
     init {
-        startingBlocks.forEach { pos, block ->
+        startingBlocks.forEach { (pos, block) ->
             setBlockAt(pos, block)
             block.entities.forEach {entity ->
                 engine.addEntity(entity)

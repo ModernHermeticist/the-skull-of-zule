@@ -28,8 +28,8 @@ class GameBuilder(val worldSize: Size3D) {
             zLength = 1)
 
     val world = WorldBuilder(worldSize)
-            .makeCaves()
-            .build(visibleSize = visibleSize)
+            .makeRooms()
+            .buildV2(visibleSize = visibleSize)
 
     fun buildGame(): Game {
 
